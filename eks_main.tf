@@ -3,16 +3,18 @@ module "eks" {
   version = var.version
   cluster_name = var.eks_cluster_name
   cluster_version = var.eks_cluster_vesrion
-  vpc_id = aws_vpc.vpc_name.id
-  subnets = aws_subnet.subnet_name.id
+  vpc_id = aws_vpc.test_eks_vpc.id
+  subnets = aws_subnet.private.id
 
-  worker_groups = [
-    {
+  managed_node_groups = {
+      default = {
         name = var.woker_node_name
-        instance_type = var.instance_type
-        asg_desired_capacity = 3
+        instance_type = [var.instance_type]
+        min_size = 4
+        max_size = 10
+        desired_size = 6
     }
-  ]
+  }
   tags = {
     Name = var.eks_cluster_name1
   }
