@@ -3,8 +3,8 @@ module "eks" {
   version = var.version
   cluster_name = var.eks_cluster_name
   cluster_version = var.eks_cluster_vesrion
-  vpc_id = var.vpc_id
-  subnets = var.subnet_ids
+  vpc_id = aws_vpc.vpc_name.id
+  subnets = aws_subnet.subnet_name.id
 
   worker_groups = [
     {
